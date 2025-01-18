@@ -14,10 +14,7 @@ class ZorkTestIT {
         zork.start();
         zork.getOutput();
         String output = zork.writeAndRead("Open mailbox");
-        String expected = """
-                Opening the mailbox reveals:
-                  A leaflet.
-                >""";
+        String expected = "Opening the mailbox reveals:  A leaflet. ";
         assertEquals(expected, output);
     }
 

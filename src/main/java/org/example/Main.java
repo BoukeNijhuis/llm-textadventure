@@ -4,6 +4,7 @@ import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 
 import java.io.IOException;
@@ -61,9 +62,9 @@ public class Main {
             String command = getCommand(chain, modelInput, true);
 
             if (command != null) {
-                System.out.printf("\n\n%s", command.toUpperCase());
+                System.out.printf("\n\n%s", clean(command.toUpperCase()));
                 modelInput = zork.writeAndRead(command);
-                System.out.printf("\n%s", modelInput);
+                System.out.printf("\n\n%s", modelInput);
             }
         }
     }
