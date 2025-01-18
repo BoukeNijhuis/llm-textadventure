@@ -4,33 +4,34 @@ import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.ollama.OllamaChatModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 
 import java.io.IOException;
+import java.util.function.Function;
+
+import static org.example.Zork.clean;
 
 public class Main {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final Zork zork = new Zork();
-    private static final String OLLAMA_URL = "http://localhost:11434";
+    private static int iDoNotUnderstandCounter = 0;
 
     public static void main(String[] args) throws IOException {
 
+        // start the game
         zork.start();
 
-        OllamaChatModel model = OllamaChatModel.builder()
-                .modelName("falcon3:10b")
-                .baseUrl(OLLAMA_URL)
+//        OllamaChatModel model = OllamaChatModel.builder()
+//                .modelName("falcon3:10b")
+//                .baseUrl("http://localhost:11434")
+//                .build();
+
+        ChatLanguageModel model = VertexAiGeminiChatModel.builder()
+                .project("voiceadventure-3cf8a")
+                .location("us-central1")
+                .modelName("gemini-exp-1206")
                 .build();
 
-//        ChatLanguageModel model = OpenAiChatModel.builder()
-//                .baseUrl("https://api.groq.com/openai/v1")
-//                .apiKey("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")
-//                .modelName("llama3-groq-70b-8192-tool-use-preview")
-//                .build();
         ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
 
         ConversationalChain chain = ConversationalChain.builder()
@@ -38,44 +39,82 @@ public class Main {
                 .chatMemory(chatMemory)
                 .build();
 
+        String modelInput = """
+                I would like to play a text adventure with you.
+                I provide the descriptions and you will provide ONLY ONE command in the form of OPEN DOOR, GO WEST, etc. 
+                Do not use formatting. 
+                Try not to die. 
+                Use the hints that the game gives you.
+                """;
 
-        String answer = chain.execute("I would like to play a text adventure with you. I provide the descriptions and you will provide ONLY ONE command in the form of OPEN DOOR, GO WEST, etc.");
+        // init game
+        getCommand(chain, modelInput, false);
+        modelInput = zork.getOutput();
+        System.out.print(clean(modelInput));
 
-        logger.error(answer);
-        String output = zork.getOutput();
-        logger.info(output);
+        // game loop
+        for (int i = 0; i < 100000; i++) {
 
-        for (int i = 0; i < 20; i++) {
+            modelInput = updateOutputWhenTheGameKeepsSayingIDoNotUnderstand(modelInput);
 
-            String command = getCommand(chain, output);
+            // do not check the provided instructions
+            String command = getCommand(chain, modelInput, true);
 
-            logger.info(command.toUpperCase());
-//            logger.info((">"));
-            output = zork.writeAndRead(command);
-            logger.info(output);
+            if (command != null) {
+                System.out.printf("\n\n%s", command.toUpperCase());
+                modelInput = zork.writeAndRead(command);
+                System.out.printf("\n%s", modelInput);
+            }
         }
     }
 
-    private static String getCommand(ConversationalChain chain, String modelInput) {
-        String command = chain.execute(modelInput);
-        // check if command is really a command
-        int words = command.split(" ").length;
+    private static String updateOutputWhenTheGameKeepsSayingIDoNotUnderstand(String output) {
+        if (output.startsWith("I don't understand that.")) {
+            if (++iDoNotUnderstandCounter == 5) {
+                output = "The game keeps repeating 'I don't understand that'. So look around and check your inventory.";
+                // warn the spectator
+                System.out.println("The counter tripped!");
 
-        while (words > 3) {
-            System.out.println("DISCARDED " + words + " :" + command);
-            command = chain.execute("Your answer is too long. Please give me EXACTLY ONE short command in the form of GO EAST, OPEN DOOR, etc.");
-            words = command.split(" ").length;
+                // reset the counter
+                iDoNotUnderstandCounter = 0;
+            }
 
+        } else {
+            iDoNotUnderstandCounter = 0;
         }
-
-
-        return command;
+        return output;
     }
 
-    public static void printWriteAndRead(String input) {
-        logger.info(input.toUpperCase());
-        logger.info((">"));
-        logger.info(zork.writeAndRead(input));
+    private static String getCommand(ConversationalChain chain, String modelInput, boolean doChecks) {
+        try {
+            String command = chain.execute(modelInput);
 
+            if (doChecks) {
+                command = checkCommand(command, x -> x.split(" ").length > 6, "command too long", "Your answer is too long. Please give me EXACTLY ONE short command in the form of GO EAST, OPEN DOOR, etc.", chain);
+                command = checkCommand(command, x -> x.startsWith("*"), "formatting found", "Do not use formatting like *. Give only simple commands without any formatting.", chain);
+                command = checkCommand(command, x -> x.indexOf("\"") > 1, "quotes found", "Do not use quotes. Give only simple commands without any formatting.", chain);
+                command = checkCommand(command, x -> x.indexOf("'") > 1, "quotes found", "Do not use quotes. Give only simple commands without any formatting.", chain);
+            }
+            return command;
+        } catch (RuntimeException e) {
+            // ignore the rate limiter
+            if (e.getMessage().indexOf("com.google.api.gax.rpc.ResourceExhaustedException") > 0) {
+                // no new command, just retry
+                return null;
+            } else {
+                throw e;
+            }
+        }
+    }
+
+    private static String checkCommand(String command, Function<String, Boolean> check, String errorMessage, String hint, ConversationalChain chain) {
+
+        if (check.apply(command)) {
+            System.out.printf("WARNING -> %s: %s%n", errorMessage.toUpperCase(), command);
+            return chain.execute(hint);
+
+        } else {
+            return command;
+        }
     }
 }

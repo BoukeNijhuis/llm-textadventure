@@ -22,7 +22,15 @@ public class Zork {
 
     public String writeAndRead(String input) {
         writeInput(input);
-        return getOutput();
+        return clean(getOutput());
+    }
+
+    public static String clean(String s) {
+        return s.replace(">", "")
+                .replace("\n", " ")
+                .replace("  ", " ")
+                .replace("\t\tThis version created 11-MAR-91.", "")
+                ;
     }
 
     public void writeInput(String input) {
