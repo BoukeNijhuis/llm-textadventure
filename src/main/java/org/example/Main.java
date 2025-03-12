@@ -23,14 +23,19 @@ public class Main {
         zork.start();
 
 //        OllamaChatModel model = OllamaChatModel.builder()
-//                .modelName("falcon3:10b")
+//                .modelName("deepseek-r1:14b")
 //                .baseUrl("http://localhost:11434")
 //                .build();
 
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
                 .project("voiceadventure-3cf8a")
                 .location("us-central1")
-                .modelName("gemini-exp-1206")
+//                .modelName("gemini-exp-1206")
+//                .modelName("gemini-2.0-flash-exp")
+//                .modelName("gemini-2.0-flash-thinking-exp-01-21")
+                .modelName("gemini-2.0-pro-exp-02-05")
+                // prevents rate limiter logging
+                .maxRetries(1)
                 .build();
 
         ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
@@ -72,9 +77,9 @@ public class Main {
     private static String updateOutputWhenTheGameKeepsSayingIDoNotUnderstand(String output) {
         if (output.startsWith("I don't understand that.")) {
             if (++iDoNotUnderstandCounter == 5) {
-                output = "The game keeps repeating 'I don't understand that'. So look around and check your inventory.";
+                output = "The game keeps repeating 'I don't understand that'. So walk around and check your inventory.";
                 // warn the spectator
-                System.out.println("The counter tripped!");
+                System.out.println("\n\nThe counter tripped!");
 
                 // reset the counter
                 iDoNotUnderstandCounter = 0;
@@ -90,16 +95,24 @@ public class Main {
         try {
             String command = chain.execute(modelInput);
 
+            // when using deepseek-r1 remove <think>*</think>
+            int index = command.indexOf("</think>");
+            if (index != -1) {
+                command = command.substring(index + 9);
+            }
+
             if (doChecks) {
+                // the order matters
                 command = checkCommand(command, x -> x.split(" ").length > 6, "command too long", "Your answer is too long. Please give me EXACTLY ONE short command in the form of GO EAST, OPEN DOOR, etc.", chain);
-                command = checkCommand(command, x -> x.startsWith("*"), "formatting found", "Do not use formatting like *. Give only simple commands without any formatting.", chain);
                 command = checkCommand(command, x -> x.indexOf("\"") > 1, "quotes found", "Do not use quotes. Give only simple commands without any formatting.", chain);
                 command = checkCommand(command, x -> x.indexOf("'") > 1, "quotes found", "Do not use quotes. Give only simple commands without any formatting.", chain);
+                command = checkCommand(command, x -> x.startsWith("*"), "formatting found", "Do not use formatting like *. Give only simple commands without any formatting.", chain);
             }
             return command;
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             // ignore the rate limiter
             if (e.getMessage().indexOf("com.google.api.gax.rpc.ResourceExhaustedException") > 0) {
+//                System.out.print("\n.");
                 // no new command, just retry
                 return null;
             } else {
@@ -111,7 +124,7 @@ public class Main {
     private static String checkCommand(String command, Function<String, Boolean> check, String errorMessage, String hint, ConversationalChain chain) {
 
         if (check.apply(command)) {
-            System.out.printf("WARNING -> %s: %s%n", errorMessage.toUpperCase(), command);
+            System.out.printf("\n\nWARNING -> %s: %s%n", errorMessage.toUpperCase(), command);
             return chain.execute(hint);
 
         } else {
