@@ -4,8 +4,9 @@ import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.ollama.OllamaChatModel;
-import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
+import dev.langchain4j.model.mistralai.MistralAiChatModel;
+import dev.langchain4j.model.mistralai.MistralAiChatModelName;
+import org.example.factory.CustomMistralAiClientBuilderFactory;
 
 import java.io.IOException;
 import java.util.function.Function;
@@ -27,13 +28,20 @@ public class Main {
 //                .baseUrl("http://localhost:11434")
 //                .build();
 
-        ChatLanguageModel model = VertexAiGeminiChatModel.builder()
-                .project("voiceadventure-3cf8a")
-                .location("us-central1")
-//                .modelName("gemini-exp-1206")
-//                .modelName("gemini-2.0-flash-exp")
-//                .modelName("gemini-2.0-flash-thinking-exp-01-21")
-                .modelName("gemini-2.0-pro-exp-02-05")
+//        ChatLanguageModel model = VertexAiGeminiChatModel.builder()
+//                .project("voiceadventure-3cf8a")
+//                .location("us-central1")
+//                .modelName("gemini-2.0-pro-exp-02-05")
+//                // prevents rate limiter logging
+//                .maxRetries(1)
+//                .build();
+
+        //hack
+        new CustomMistralAiClientBuilderFactory();
+
+        ChatLanguageModel model = MistralAiChatModel.builder()
+                .modelName(MistralAiChatModelName.MISTRAL_SMALL_LATEST)
+                .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();
@@ -111,7 +119,10 @@ public class Main {
             return command;
         } catch (Exception e) {
             // ignore the rate limiter
-            if (e.getMessage().indexOf("com.google.api.gax.rpc.ResourceExhaustedException") > 0) {
+            if (
+                    e.getMessage().indexOf("com.google.api.gax.rpc.ResourceExhaustedException") > 0 || // gemini
+                    e.getMessage().indexOf("Requests rate limit exceeded") > 0) // mistral
+            {
 //                System.out.print("\n.");
                 // no new command, just retry
                 return null;
@@ -124,7 +135,7 @@ public class Main {
     private static String checkCommand(String command, Function<String, Boolean> check, String errorMessage, String hint, ConversationalChain chain) {
 
         if (check.apply(command)) {
-            System.out.printf("\n\nWARNING -> %s: %s%n", errorMessage.toUpperCase(), command);
+            System.out.printf("\n\nWARNING -> %s: ---%s---%n", errorMessage.toUpperCase(), command);
             return chain.execute(hint);
 
         } else {
