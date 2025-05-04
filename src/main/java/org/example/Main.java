@@ -4,23 +4,21 @@ import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 
 import java.io.IOException;
 import java.util.function.Function;
 
-import static org.example.Zork.clean;
-
 public class Main {
 
-    private static final Zork zork = new Zork();
+//    private static final Game game = new Zork();
+    private static final Game game = new VoiceAdventure();
     private static int iDoNotUnderstandCounter = 0;
 
     public static void main(String[] args) throws IOException {
 
         // start the game
-        zork.start();
+        game.start();
 
 //        OllamaChatModel model = OllamaChatModel.builder()
 //                .modelName("deepseek-r1:14b")
@@ -33,7 +31,8 @@ public class Main {
 //                .modelName("gemini-exp-1206")
 //                .modelName("gemini-2.0-flash-exp")
 //                .modelName("gemini-2.0-flash-thinking-exp-01-21")
-                .modelName("gemini-2.0-pro-exp-02-05")
+//                .modelName("gemini-2.0-pro-exp-02-05")
+                .modelName("gemini-2.5-pro-exp-03-25")
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();
@@ -55,8 +54,8 @@ public class Main {
 
         // init game
         getCommand(chain, modelInput, false);
-        modelInput = zork.getOutput();
-        System.out.print(clean(modelInput));
+        modelInput = game.read();
+        System.out.print(modelInput);
 
         // game loop
         for (int i = 0; i < 100000; i++) {
@@ -67,9 +66,13 @@ public class Main {
             String command = getCommand(chain, modelInput, true);
 
             if (command != null) {
-                System.out.printf("\n\n%s", clean(command.toUpperCase()));
-                modelInput = zork.writeAndRead(command);
+                System.out.printf("\n\n%s", command.toUpperCase());
+                modelInput = game.writeAndRead(command);
                 System.out.printf("\n\n%s", modelInput);
+
+                if (modelInput.contains(game.getCompletionString())) {
+                    System.exit(0);
+                }
             }
         }
     }
