@@ -43,7 +43,8 @@ public class Main {
                 """;
 
         // init game
-        CommandExtractor.getCommand(model, chain, modelInput, false);
+        CommandExtractor commandExtractor = new CommandExtractor(model, chain);
+        commandExtractor.getCommand(modelInput, false);
         modelInput = game.read();
         initialPrint(modelInput);
 
@@ -51,7 +52,7 @@ public class Main {
         while (true) {
 
             // do not check the provided instructions
-            String command = CommandExtractor.getCommand(model, chain, modelInput, true);
+            String command = commandExtractor.getCommand(modelInput, true);
 
             if (command != null) {
                 print(command.toUpperCase());

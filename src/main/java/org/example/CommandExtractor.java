@@ -5,21 +5,25 @@ import org.example.model.Model;
 
 import java.util.function.Function;
 
+import static org.example.Printer.print;
+
 public class CommandExtractor {
 
-    static String getCommand(Model model, ConversationalChain chain, String modelInput, boolean doChecks) {
+    private Model model;
+    private ConversationalChain chain;
+
+    public CommandExtractor(Model model, ConversationalChain chain) {
+        this.model = model;
+        this.chain = chain;
+    }
+
+    public String getCommand(String modelInput, boolean doChecks) {
         try {
             if (modelInput.isBlank()) {
                 modelInput = "Did not receive any input from the game.";
             }
 
             String command = chain.execute(modelInput);
-
-            // when using deepseek-r1 remove <think>*</think>
-            int index = command.indexOf("</think>");
-            if (index != -1) {
-                command = command.substring(index + 9);
-            }
 
             if (doChecks) {
                 // the order matters
@@ -41,7 +45,7 @@ public class CommandExtractor {
     private static String checkCommand(String command, Function<String, Boolean> check, String errorMessage, String hint, ConversationalChain chain) {
 
         if (check.apply(command)) {
-            System.out.printf("\n\nWARNING -> %s: %s%n", errorMessage.toUpperCase(), command);
+            print(String.format("WARNING -> %s: %s%n", errorMessage.toUpperCase(), command));
             return chain.execute(hint);
 
         } else {
