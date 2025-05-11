@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.game.Zork;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

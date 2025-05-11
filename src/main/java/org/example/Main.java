@@ -3,16 +3,22 @@ package org.example;
 import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
+import org.example.game.Game;
+import org.example.game.VoiceAdventure;
+import org.example.game.Zork;
+import org.example.model.Gemini;
+import org.example.model.Model;
+import org.example.model.Ollama;
 
 import java.io.IOException;
 import java.util.function.Function;
 
 public class Main {
 
-    //    private static final Game game = new Zork();
-    private static final Game game = new Zork(); //new VoiceAdventure();
+    private static final Model model  = new Gemini();
+//    private static final Model model  = new Ollama("gemma3:12b");
+    private static final Game game = new Zork();
+//        private static final Game game = new VoiceAdventure();
     private static int repeatCounter = 0;
     private static String repeatPhrase;
 
@@ -21,25 +27,10 @@ public class Main {
         // start the game
         game.start();
 
-//        OllamaChatModel model = OllamaChatModel.builder()
-//                .modelName("gemma3:12b")
-//                .baseUrl("http://localhost:11434")
-//                .build();
-
-        // todo: introduce two class with models: Ollama model & Gemini model (should contain rate limit logic)
-
-        ChatLanguageModel model = VertexAiGeminiChatModel.builder()
-                .project("voiceadventure-3cf8a")
-                .location("us-central1")
-                .modelName("gemini-2.5-pro-exp-03-25")
-                // prevents rate limiter logging
-                .maxRetries(1)
-                .build();
-
         ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
 
         ConversationalChain chain = ConversationalChain.builder()
-                .chatLanguageModel(model)
+                .chatLanguageModel(model.getChatLanguageModel())
                 .chatMemory(chatMemory)
                 .build();
 
@@ -102,7 +93,7 @@ public class Main {
 
     private static String getCommand(ConversationalChain chain, String modelInput, boolean doChecks) {
         try {
-            if (modelInput.isEmpty()) {
+            if (modelInput.isBlank()) {
                 modelInput = "Did not receive any input from the game.";
             }
 
@@ -122,12 +113,10 @@ public class Main {
             }
             return command;
         } catch (Exception e) {
-            // ignore the rate limiter
-            if (e.getMessage().indexOf("com.google.api.gax.rpc.ResourceExhaustedException") > 0) {
-//                System.out.print("\n.");
-                // no new command, just retry
-                return null;
-            } else {
+
+            try {
+                return model.handleException(e);
+            } catch (Exception ex) {
                 throw e;
             }
         }
