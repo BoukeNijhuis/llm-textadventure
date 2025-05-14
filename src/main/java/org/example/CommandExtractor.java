@@ -9,6 +9,15 @@ import static org.example.Printer.print;
 
 public class CommandExtractor {
 
+    private static final String NO_INPUT_MESSAGE = "Did not receive any input from the game.";
+    private static final String COMMAND_TOO_LONG_ERROR = "command too long";
+    private static final String COMMAND_TOO_LONG_HINT = "Your answer is too long. Please give me EXACTLY ONE short command in the form of GO EAST, OPEN DOOR, etc.";
+    private static final String QUOTES_FOUND_ERROR = "quotes found";
+    private static final String QUOTES_FOUND_HINT = "Do not use quotes. Give only simple commands without any formatting.";
+    private static final String FORMATTING_FOUND_ERROR = "formatting found";
+    private static final String FORMATTING_FOUND_HINT = "Do not use formatting like *. Give only simple commands without any formatting.";
+    private static final String WARNING_FORMAT = "WARNING -> %s: %s%n";
+
     private Model model;
     private ConversationalChain chain;
 
@@ -20,16 +29,16 @@ public class CommandExtractor {
     public String getCommand(String modelInput, boolean doChecks) {
         try {
             if (modelInput.isBlank()) {
-                modelInput = "Did not receive any input from the game.";
+                modelInput = NO_INPUT_MESSAGE;
             }
 
             String command = chain.execute(modelInput);
 
             if (doChecks) {
                 // the order matters
-                command = checkCommand(command, x -> x.split(" ").length > 6, "command too long", "Your answer is too long. Please give me EXACTLY ONE short command in the form of GO EAST, OPEN DOOR, etc.", chain);
-                command = checkCommand(command, x -> x.indexOf("\"") > 1 || x.indexOf("'") > 1, "quotes found", "Do not use quotes. Give only simple commands without any formatting.", chain);
-                command = checkCommand(command, x -> x.startsWith("*"), "formatting found", "Do not use formatting like *. Give only simple commands without any formatting.", chain);
+                command = checkCommand(command, x -> x.split(" ").length > 6, COMMAND_TOO_LONG_ERROR, COMMAND_TOO_LONG_HINT, chain);
+                command = checkCommand(command, x -> x.indexOf("\"") > 1 || x.indexOf("'") > 1, QUOTES_FOUND_ERROR, QUOTES_FOUND_HINT, chain);
+                command = checkCommand(command, x -> x.contains("*"), FORMATTING_FOUND_ERROR, FORMATTING_FOUND_HINT, chain);
             }
             return command;
         } catch (Exception e) {
@@ -45,7 +54,7 @@ public class CommandExtractor {
     private static String checkCommand(String command, Function<String, Boolean> check, String errorMessage, String hint, ConversationalChain chain) {
 
         if (check.apply(command)) {
-            print(String.format("WARNING -> %s: %s%n", errorMessage.toUpperCase(), command));
+            print(String.format(WARNING_FORMAT, errorMessage.toUpperCase(), command));
             return chain.execute(hint);
 
         } else {
