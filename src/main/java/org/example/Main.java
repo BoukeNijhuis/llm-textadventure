@@ -54,10 +54,12 @@ public class Main {
                 modelInput = game.writeAndRead(command);
                 print(modelInput);
 
+                // check if the game is over
                 if (modelInput.contains(game.getCompletionString())) {
                     System.exit(0);
                 }
 
+                // help the llm when it is stuck
                 modelInput = updateOutputWhenTheGameKeepsRepeating(modelInput);
             }
         }
