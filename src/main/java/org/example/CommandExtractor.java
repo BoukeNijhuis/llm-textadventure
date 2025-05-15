@@ -42,7 +42,6 @@ public class CommandExtractor {
             }
             return command;
         } catch (Exception e) {
-
             try {
                 return model.handleException(e);
             } catch (Exception ex) {

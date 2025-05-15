@@ -7,6 +7,7 @@ import org.example.game.Game;
 import org.example.game.Zork;
 import org.example.model.Gemini;
 import org.example.model.Model;
+πimport org.example.model.Ollama;
 
 import java.io.IOException;
 
@@ -16,24 +17,18 @@ import static org.example.Printer.print;
 
 public class Main {
 
-    private static final Model model  = new Gemini();
-//    private static final Model model  = new Ollama("gemma3:12b");
+    private static final Model model  = new Ollama("gemma3:12b");
     private static final Game game = new Zork();
-//        private static final Game game = new VoiceAdventure();
-
 
     public static void main(String[] args) throws IOException {
 
-        // start the game
-        game.start();
-
-        ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
-
+        // setup the chain
         ConversationalChain chain = ConversationalChain.builder()
                 .chatLanguageModel(model.getChatLanguageModel())
-                .chatMemory(chatMemory)
+                .chatMemory(MessageWindowChatMemory.withMaxMessages(20))
                 .build();
 
+        // initial prompt
         String modelInput = """
                 I would like to play a text adventure with you.
                 I provide the descriptions and you will provide ONLY ONE command in the form of OPEN DOOR, GO WEST, etc. 
@@ -42,16 +37,18 @@ public class Main {
                 Use the hints that the game gives you.
                 """;
 
-        // init game
         CommandExtractor commandExtractor = new CommandExtractor(model, chain);
+        // do not check the provided instructions
         commandExtractor.getCommand(modelInput, false);
+
+        // init game
+        game.start();
         modelInput = game.read();
         initialPrint(modelInput);
 
         // game loop
         while (true) {
 
-            // do not check the provided instructions
             String command = commandExtractor.getCommand(modelInput, true);
 
             if (command != null) {
