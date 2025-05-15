@@ -1,23 +1,21 @@
 package org.example;
 
 import dev.langchain4j.chain.ConversationalChain;
-import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import org.example.game.Game;
 import org.example.game.Zork;
-import org.example.model.Gemini;
 import org.example.model.Model;
-πimport org.example.model.Ollama;
+import org.example.model.Ollama;
 
 import java.io.IOException;
 
 import static org.example.Printer.initialPrint;
-import static org.example.RepeatPreventer.updateOutputWhenTheGameKeepsRepeating;
 import static org.example.Printer.print;
+import static org.example.RepeatPreventer.updateOutputWhenTheGameKeepsRepeating;
 
 public class Main {
 
-    private static final Model model  = new Ollama("gemma3:12b");
+    private static final Model model = new Ollama("gemma3:12b");
     private static final Game game = new Zork();
 
     public static void main(String[] args) throws IOException {
