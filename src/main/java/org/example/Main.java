@@ -3,7 +3,9 @@ package org.example;
 import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import org.example.game.Game;
+import org.example.game.VoiceAdventure;
 import org.example.game.Zork;
+import org.example.model.Gemini;
 import org.example.model.Model;
 import org.example.model.Ollama;
 
@@ -15,8 +17,14 @@ import static org.example.RepeatPreventer.updateOutputWhenTheGameKeepsRepeating;
 
 public class Main {
 
-    private static final Model model = new Ollama("gemma3:12b");
-    private static final Game game = new Zork();
+    // TODO: extra line after initial prompt
+    // TODO: something goes wrong after incorrect commands from the llm (check the scratch)
+    // TODO: choose model & game with input parameters
+    // TODO: readme with instructions for Zork, Ollama & Gemini
+    // TODO: backup scratch for playing VoiceAdventure
+
+    private static final Model model = new Gemini();
+    private static final Game game = new VoiceAdventure();
 
     public static void main(String[] args) throws IOException {
 
