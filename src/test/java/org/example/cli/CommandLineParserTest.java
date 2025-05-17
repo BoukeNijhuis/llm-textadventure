@@ -110,7 +110,7 @@ class CommandLineParserTest {
                    combinedOutput.contains("No enum constant org.example.cli.GameConverter.ValidGame.INVALID"),
                    "Error message not found in output or error streams");
     }
-π
+
     @Test
     void testRunMethod() {
         // The run method is required by Picocli but doesn't do anything
