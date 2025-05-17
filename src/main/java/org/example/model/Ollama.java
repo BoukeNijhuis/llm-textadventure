@@ -23,4 +23,9 @@ public class Ollama implements Model {
     public String handleException(Exception e) throws Exception {
         throw e;
     }
+
+    @Override
+    public String getName() {
+        return String.format("Ollama with %s", modelName);
+    }
 }

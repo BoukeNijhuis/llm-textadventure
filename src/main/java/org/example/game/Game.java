@@ -11,4 +11,8 @@ public interface Game {
     String writeAndRead(String input);
 
     String getCompletionString();
+
+    default String getName() {
+        return this.getClass().getSimpleName();
+    }
 }

@@ -2,16 +2,13 @@ package org.example;
 
 import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import org.example.cli.CommandLineParser;
 import org.example.game.Game;
-import org.example.game.VoiceAdventure;
-import org.example.game.Zork;
-import org.example.model.Gemini;
 import org.example.model.Model;
-import org.example.model.Ollama;
+import picocli.CommandLine;
 
 import java.io.IOException;
 
-import static org.example.Printer.initialPrint;
 import static org.example.Printer.print;
 import static org.example.RepeatPreventer.updateOutputWhenTheGameKeepsRepeating;
 
@@ -19,14 +16,16 @@ public class Main {
 
     // TODO: extra line after initial prompt
     // TODO: something goes wrong after incorrect commands from the llm (check the scratch)
-    // TODO: choose model & game with input parameters
     // TODO: readme with instructions for Zork, Ollama & Gemini
     // TODO: backup scratch for playing VoiceAdventure
 
-    private static final Model model = new Gemini();
-    private static final Game game = new VoiceAdventure();
 
     public static void main(String[] args) throws IOException {
+        CommandLineParser clParser = new CommandLineParser();
+        new CommandLine(clParser).execute(args);
+
+        Game game = clParser.getGame();
+        Model model = clParser.getModel();
 
         // setup the chain
         ConversationalChain chain = ConversationalChain.builder()
@@ -50,7 +49,7 @@ public class Main {
         // init game
         game.start();
         modelInput = game.read();
-        initialPrint(modelInput);
+        print(modelInput);
 
         // game loop
         while (true) {

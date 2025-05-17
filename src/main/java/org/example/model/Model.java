@@ -8,4 +8,7 @@ public interface Model {
 
     String handleException(Exception e) throws Exception;
 
+    default String getName() {
+        return this.getClass().getSimpleName();
+    }
 }
