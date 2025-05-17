@@ -105,12 +105,12 @@ class CommandLineParserTest {
         String combinedOutput = output + error;
 
         // verify that the error message is present in one of the streams
-        assertTrue(combinedOutput.contains("Invalid value for option '--game'") || 
-                   combinedOutput.contains("cannot convert 'invalid' to Game") ||
+        assertTrue(combinedOutput.contains("Invalid value for option '--game'") &&
+                   combinedOutput.contains("cannot convert 'invalid' to Game") &&
                    combinedOutput.contains("No enum constant org.example.cli.GameConverter.ValidGame.INVALID"),
                    "Error message not found in output or error streams");
     }
-
+π
     @Test
     void testRunMethod() {
         // The run method is required by Picocli but doesn't do anything
