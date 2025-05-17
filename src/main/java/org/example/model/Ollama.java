@@ -16,6 +16,7 @@ public class Ollama implements Model {
         return OllamaChatModel.builder()
                 .modelName(modelName)
                 .baseUrl("http://localhost:11434")
+                .maxRetries(0)
                 .build();
     }
 
