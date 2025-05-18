@@ -1,6 +1,7 @@
 package nl.boukenijhuis.cli;
 
 import nl.boukenijhuis.model.Gemini;
+import nl.boukenijhuis.model.Mistral;
 import nl.boukenijhuis.model.Model;
 import nl.boukenijhuis.model.Ollama;
 import picocli.CommandLine;
@@ -8,7 +9,8 @@ import picocli.CommandLine;
 public class ModelConverter implements CommandLine.ITypeConverter<Model> {
 
     private enum ValidModel {
-        GEMINI(new Gemini());
+        GEMINI(new Gemini()),
+        MISTRAL(new Mistral());
 
         private final Model model;
 
