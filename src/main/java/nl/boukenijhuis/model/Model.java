@@ -1,4 +1,4 @@
-package org.example.model;
+package nl.boukenijhuis.model;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 

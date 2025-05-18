@@ -1,7 +1,7 @@
-package org.example.cli;
+package nl.boukenijhuis.cli;
 
-import org.example.game.Game;
-import org.example.model.Model;
+import nl.boukenijhuis.game.Game;
+import nl.boukenijhuis.model.Model;
 
 import static picocli.CommandLine.Option;
 

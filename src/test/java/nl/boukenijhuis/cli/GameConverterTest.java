@@ -1,8 +1,8 @@
-package org.example.cli;
+package nl.boukenijhuis.cli;
 
-import org.example.game.Game;
-import org.example.game.VoiceAdventure;
-import org.example.game.Zork;
+import nl.boukenijhuis.game.Game;
+import nl.boukenijhuis.game.VoiceAdventure;
+import nl.boukenijhuis.game.Zork;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

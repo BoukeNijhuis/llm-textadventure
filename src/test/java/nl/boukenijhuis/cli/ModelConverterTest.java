@@ -1,8 +1,8 @@
-package org.example.cli;
+package nl.boukenijhuis.cli;
 
-import org.example.model.Gemini;
-import org.example.model.Model;
-import org.example.model.Ollama;
+import nl.boukenijhuis.model.Gemini;
+import nl.boukenijhuis.model.Model;
+import nl.boukenijhuis.model.Ollama;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

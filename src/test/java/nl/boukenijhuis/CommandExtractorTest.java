@@ -1,7 +1,7 @@
-package org.example;
+package nl.boukenijhuis;
 
 import dev.langchain4j.chain.ConversationalChain;
-import org.example.model.Model;
+import nl.boukenijhuis.model.Model;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

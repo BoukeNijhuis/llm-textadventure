@@ -1,11 +1,11 @@
-package org.example;
+package nl.boukenijhuis;
 
 import dev.langchain4j.chain.ConversationalChain;
-import org.example.model.Model;
+import nl.boukenijhuis.model.Model;
 
 import java.util.function.Function;
 
-import static org.example.Printer.print;
+import static nl.boukenijhuis.Printer.print;
 
 public class CommandExtractor {
 

@@ -1,16 +1,16 @@
-package org.example;
+package nl.boukenijhuis;
 
 import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import org.example.cli.CommandLineParser;
-import org.example.game.Game;
-import org.example.model.Model;
+import nl.boukenijhuis.cli.CommandLineParser;
+import nl.boukenijhuis.game.Game;
+import nl.boukenijhuis.model.Model;
 import picocli.CommandLine;
 
 import java.io.IOException;
 
-import static org.example.Printer.print;
-import static org.example.RepeatPreventer.updateOutputWhenTheGameKeepsRepeating;
+import static nl.boukenijhuis.Printer.print;
+import static nl.boukenijhuis.RepeatPreventer.updateOutputWhenTheGameKeepsRepeating;
 
 public class Main {
 

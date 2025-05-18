@@ -1,6 +1,6 @@
-package org.example;
+package nl.boukenijhuis;
 
-import static org.example.Printer.print;
+import static nl.boukenijhuis.Printer.print;
 
 public class RepeatPreventer {
 

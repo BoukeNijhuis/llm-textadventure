@@ -1,6 +1,6 @@
-package org.example;
+package nl.boukenijhuis;
 
-import org.example.game.Zork;
+import nl.boukenijhuis.game.Zork;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

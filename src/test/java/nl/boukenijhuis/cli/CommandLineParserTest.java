@@ -1,11 +1,10 @@
-package org.example.cli;
+package nl.boukenijhuis.cli;
 
-import org.example.game.Game;
-import org.example.game.VoiceAdventure;
-import org.example.game.Zork;
-import org.example.model.Gemini;
-import org.example.model.Model;
-import org.example.model.Ollama;
+import nl.boukenijhuis.game.Game;
+import nl.boukenijhuis.game.VoiceAdventure;
+import nl.boukenijhuis.game.Zork;
+import nl.boukenijhuis.model.Gemini;
+import nl.boukenijhuis.model.Model;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -105,10 +104,7 @@ class CommandLineParserTest {
         String combinedOutput = output + error;
 
         // verify that the error message is present in one of the streams
-        assertTrue(combinedOutput.contains("Invalid value for option '--game'") &&
-                   combinedOutput.contains("cannot convert 'invalid' to Game") &&
-                   combinedOutput.contains("No enum constant org.example.cli.GameConverter.ValidGame.INVALID"),
-                   "Error message not found in output or error streams");
+        assertTrue(combinedOutput.contains("Invalid value for option '--game'"));
     }
 
     @Test

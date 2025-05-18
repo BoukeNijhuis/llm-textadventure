@@ -1,4 +1,4 @@
-package org.example;
+package nl.boukenijhuis;
 
 public class Printer {
 

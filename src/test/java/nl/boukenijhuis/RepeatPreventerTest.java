@@ -1,4 +1,4 @@
-package org.example;
+package nl.boukenijhuis;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,9 +1,8 @@
-package org.example.cli;
+package nl.boukenijhuis.cli;
 
-import org.example.model.Gemini;
-import org.example.model.Model;
-import org.example.model.Ollama;
-import org.jetbrains.annotations.NotNull;
+import nl.boukenijhuis.model.Gemini;
+import nl.boukenijhuis.model.Model;
+import nl.boukenijhuis.model.Ollama;
 import picocli.CommandLine;
 
 public class ModelConverter implements CommandLine.ITypeConverter<Model> {

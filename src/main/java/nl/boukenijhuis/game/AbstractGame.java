@@ -1,4 +1,4 @@
-package org.example.game;
+package nl.boukenijhuis.game;
 
 import java.io.IOException;
 import java.io.InputStream;
