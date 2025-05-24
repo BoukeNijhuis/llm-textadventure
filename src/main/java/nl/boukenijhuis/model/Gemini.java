@@ -10,7 +10,8 @@ public class Gemini implements Model {
         return VertexAiGeminiChatModel.builder()
                 .project("voiceadventure-3cf8a")
                 .location("us-central1")
-                .modelName("gemini-2.5-pro-exp-03-25")
+//                .modelName("gemini-2.5-pro-exp-03-25")
+                .modelName("gemini-2.5-flash-preview-05-20")
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();
