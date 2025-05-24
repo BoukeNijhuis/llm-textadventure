@@ -25,7 +25,6 @@ public class ModelConverter implements CommandLine.ITypeConverter<Model> {
             // no valid model found, so probably an Ollama model
             model = getOllamaModel(value);
         }
-        System.out.printf("Model: %s%s", model.getName(), System.lineSeparator());
         return model;
     }
 

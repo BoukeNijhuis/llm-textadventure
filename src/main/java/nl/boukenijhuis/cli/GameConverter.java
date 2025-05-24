@@ -20,7 +20,6 @@ public class GameConverter implements CommandLine.ITypeConverter<Game> {
 
     public Game convert(String value) {
         Game game = ValidGame.valueOf(value.toUpperCase()).game;
-        System.out.printf("Game: %s%s", game.getName(), System.lineSeparator());
         return game;
     }
 }

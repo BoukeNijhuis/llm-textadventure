@@ -9,12 +9,11 @@ import picocli.CommandLine;
 
 import java.io.IOException;
 
-import static nl.boukenijhuis.Printer.print;
+import static nl.boukenijhuis.Printer.*;
 import static nl.boukenijhuis.RepeatPreventer.updateOutputWhenTheGameKeepsRepeating;
 
 public class Main {
 
-    // TODO: extra line after initial prompt
     // TODO: something goes wrong after incorrect commands from the llm (check the scratch)
     // TODO: readme with instructions for Zork & all models
     // TODO: backup scratch for playing VoiceAdventure
@@ -27,6 +26,8 @@ public class Main {
 
         Game game = clParser.getGame();
         Model model = clParser.getModel();
+
+        printStatus(game, model);
 
         // setup the chain
         ConversationalChain chain = ConversationalChain.builder()
