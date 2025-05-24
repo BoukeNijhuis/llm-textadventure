@@ -16,8 +16,9 @@ public class Main {
 
     // TODO: extra line after initial prompt
     // TODO: something goes wrong after incorrect commands from the llm (check the scratch)
-    // TODO: readme with instructions for Zork, Ollama & Gemini
+    // TODO: readme with instructions for Zork & all models
     // TODO: backup scratch for playing VoiceAdventure
+    // TODO: introduce family
 
 
     public static void main(String[] args) throws IOException {

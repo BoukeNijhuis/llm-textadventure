@@ -1,16 +1,14 @@
 package nl.boukenijhuis.cli;
 
-import nl.boukenijhuis.model.Gemini;
-import nl.boukenijhuis.model.Mistral;
-import nl.boukenijhuis.model.Model;
-import nl.boukenijhuis.model.Ollama;
+import nl.boukenijhuis.model.*;
 import picocli.CommandLine;
 
 public class ModelConverter implements CommandLine.ITypeConverter<Model> {
 
     private enum ValidModel {
         GEMINI(new Gemini()),
-        MISTRAL(new Mistral());
+        MISTRAL(new Mistral()),
+        NVIDIA(new Nvidia());
 
         private final Model model;
 
