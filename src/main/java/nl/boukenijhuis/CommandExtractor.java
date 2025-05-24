@@ -16,7 +16,7 @@ public class CommandExtractor {
     private static final String QUOTES_FOUND_HINT = "Do not use quotes. Give only simple commands without any formatting.";
     private static final String FORMATTING_FOUND_ERROR = "formatting found";
     private static final String FORMATTING_FOUND_HINT = "Do not use formatting like *. Give only simple commands without any formatting.";
-    private static final String WARNING_FORMAT = "WARNING -> %s: %s%n";
+    private static final String WARNING_FORMAT = "!!! WARNING -> %s: %s !!!";
 
     private Model model;
     private ConversationalChain chain;
