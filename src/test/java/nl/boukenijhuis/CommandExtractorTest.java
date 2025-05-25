@@ -59,7 +59,6 @@ class CommandExtractorTest {
         assertEquals(improvedAnswer, command);
     }
 
-
     @Test
     public void formattingFound() {
         String input = "input";
@@ -70,5 +69,25 @@ class CommandExtractorTest {
         String command = commandExtractor.getCommand(input, true);
         assertEquals(improvedAnswer, command);
     }
+
+    @Test
+    public void removeThinkingPart() {
+        String input = "input";
+        Mockito.when(chain.execute(input)).thenReturn("<think>thinking</think> command");
+
+        String command = commandExtractor.getCommand(input, true);
+        assertEquals("command", command);
+    }
+
+    @Test
+    public void removeLongThinkingPart() {
+        String input = "input";
+        Mockito.when(chain.execute(input)).thenReturn("<think>\nOkay, the user wants to play a text adventure game. They mentioned starting in a field west of a big white house with a boarded front door and a mailbox. The goal is to provide only one command each time.\n\nFirst, I need to think about typical text adventure mechanics. The mailbox is mentioned, so checking it is a common first step. The player might expect to find something inside, like a key or a note, which could be useful later. Since the front door is boarded up, maybe there's another way into the house, but the mailbox is the immediate interactable object here.\n\nI should make sure the command is straightforward. The user might want to examine the mailbox first. The command \"OPEN MAILBOX\" makes sense here. It's a logical first action to explore the environment and gather items or clues. There's no immediate danger mentioned, so this action should be safe. Let's go with that.\n</think>\n\nOPEN MAILBOX".formatted());
+
+        String command = commandExtractor.getCommand(input, true);
+        assertEquals("OPEN MAILBOX", command);
+    }
+
+
 
 }

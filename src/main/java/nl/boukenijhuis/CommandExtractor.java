@@ -34,6 +34,12 @@ public class CommandExtractor {
 
             String command = chain.execute(modelInput);
 
+            // remove new lines
+            command = command.replaceAll("\\n", " ");
+
+            // remove <think>*</think>
+            command = command.replaceAll("<think>.*</think>", "").trim();
+
             if (doChecks) {
                 // the order matters
                 command = checkCommand(command, x -> x.split(" ").length > 6, COMMAND_TOO_LONG_ERROR, COMMAND_TOO_LONG_HINT, chain);
