@@ -34,7 +34,7 @@ public class CommandExtractor {
 
             String command = chain.execute(modelInput);
 
-            // remove new lines
+            // remove new lines (the removing of <think> works better with no new lines)
             command = command.replaceAll("\\n", " ");
 
             // remove <think>*</think>
