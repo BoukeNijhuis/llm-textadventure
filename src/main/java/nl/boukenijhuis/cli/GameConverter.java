@@ -1,5 +1,6 @@
 package nl.boukenijhuis.cli;
 
+import nl.boukenijhuis.game.Hitchhiker;
 import nl.boukenijhuis.game.Game;
 import nl.boukenijhuis.game.VoiceAdventure;
 import nl.boukenijhuis.game.Zork;
@@ -9,6 +10,7 @@ public class GameConverter implements CommandLine.ITypeConverter<Game> {
 
     private enum ValidGame {
         ZORK(new Zork()),
+        HITCHHIKER(new Hitchhiker()),
         VOICEADVENTURE(new VoiceAdventure());
 
         private final Game game;
