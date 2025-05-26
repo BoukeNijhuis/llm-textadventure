@@ -1,7 +1,7 @@
 package nl.boukenijhuis;
 
 import dev.langchain4j.chain.ConversationalChain;
-import nl.boukenijhuis.model.Model;
+import nl.boukenijhuis.provider.Provider;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -15,7 +15,7 @@ class CommandExtractorTest {
     private static final String QUOTES_FOUND_HINT = "Do not use quotes. Give only simple commands without any formatting.";
     private static final String FORMATTING_FOUND_HINT = "Do not use formatting like *. Give only simple commands without any formatting.";
 
-    Model model = mock(Model.class);
+    Provider model = mock(Provider.class);
     ConversationalChain chain = mock(ConversationalChain.class);
     CommandExtractor commandExtractor = new CommandExtractor(model, chain);
 

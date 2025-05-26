@@ -1,10 +1,12 @@
-package nl.boukenijhuis.model;
+package nl.boukenijhuis.provider;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 
-public interface Model {
+public interface Provider {
 
-    ChatLanguageModel getChatLanguageModel();
+    ChatLanguageModel getChatLanguageModel(String model);
+
+    String getDefaultModel();
 
     String handleException(Exception e) throws Exception;
 

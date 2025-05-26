@@ -3,8 +3,8 @@ package nl.boukenijhuis.cli;
 import nl.boukenijhuis.game.Game;
 import nl.boukenijhuis.game.Hitchhiker;
 import nl.boukenijhuis.game.Zork;
-import nl.boukenijhuis.model.Gemini;
-import nl.boukenijhuis.model.Model;
+import nl.boukenijhuis.provider.Google;
+import nl.boukenijhuis.provider.Provider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,25 +64,25 @@ class CommandLineParserTest {
     }
 
     @Test
-    void testSetModel() {
-        new CommandLine(parser).execute("--model", "gemini");
+    void testProvider() {
+        new CommandLine(parser).execute("--provider", "gemini");
 
-        Model model = parser.getModel();
-        assertNotNull(model);
-        assertTrue(model instanceof Gemini);
+        Provider provider = parser.getProvider();
+        assertNotNull(provider);
+        assertTrue(provider instanceof Google);
     }
 
     @Test
-    void testSetBothGameAndModel() {
-        new CommandLine(parser).execute("--game", "hitchhiker", "--model", "gemini");
+    void testSetBothGameAndProvider() {
+        new CommandLine(parser).execute("--game", "hitchhiker", "--provider", "gemini");
 
         Game game = parser.getGame();
         assertNotNull(game);
         assertTrue(game instanceof Hitchhiker);
 
-        Model model = parser.getModel();
-        assertNotNull(model);
-        assertTrue(model instanceof Gemini);
+        Provider provider = parser.getProvider();
+        assertNotNull(provider);
+        assertTrue(provider instanceof Google);
     }
 
     @Test

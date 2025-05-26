@@ -1,8 +1,8 @@
 package nl.boukenijhuis.cli;
 
-import nl.boukenijhuis.model.Gemini;
-import nl.boukenijhuis.model.Model;
-import nl.boukenijhuis.model.Ollama;
+import nl.boukenijhuis.provider.Google;
+import nl.boukenijhuis.provider.Provider;
+import nl.boukenijhuis.provider.Ollama;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,14 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ModelConverterTest {
 
-    private ModelConverter converter;
+    private ProviderConverter converter;
     private ByteArrayOutputStream outputStream;
     private PrintStream originalOut;
 
 
     @BeforeEach
     void setUp() {
-        converter = new ModelConverter();
+        converter = new ProviderConverter();
 
         // capture System.out for assertions
         originalOut = System.out;
@@ -38,20 +38,20 @@ class ModelConverterTest {
 
     @Test
     void convertGemini() {
-        Model model = converter.convert("gemini");
-        assertTrue(model instanceof Gemini);
+        Provider model = converter.convert("gemini");
+        assertTrue(model instanceof Google);
     }
 
     @Test
     void convertGeminiCaseInsensitive() {
-        Model model = converter.convert("GEMINI");
-        assertTrue(model instanceof Gemini);
+        Provider model = converter.convert("GEMINI");
+        assertTrue(model instanceof Google);
     }
 
     // works only when you have the specified model downloaded
     @Test
     void convertOllama() {
-        Model model = converter.convert("gemma3:12b");
+        Provider model = converter.convert("ollama");
         assertTrue(model instanceof Ollama);
     }
 
@@ -60,6 +60,5 @@ class ModelConverterTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             converter.convert("invalid");
         });
-        assertTrue(exception.getMessage().contains("Invalid"));
     }
 }

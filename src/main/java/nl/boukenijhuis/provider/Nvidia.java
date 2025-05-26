@@ -1,21 +1,29 @@
-package nl.boukenijhuis.model;
+package nl.boukenijhuis.provider;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.mistralai.MistralAiChatModel;
 
-public class Nvidia implements Model {
+public class Nvidia extends AbstractProvider {
 
     @Override
-    public ChatLanguageModel getChatLanguageModel() {
+    public ChatLanguageModel getChatLanguageModel(String model) {
+
+        setModel(model);
+
         return MistralAiChatModel.builder()
                 .apiKey(System.getenv("NVIDIA_API_KEY"))
                 .baseUrl("https://integrate.api.nvidia.com/v1")
 //                .modelName("meta/llama-3.3-70b-instruct")
 //                .modelName("nvidia/llama-3.1-nemotron-ultra-253b-v1")
-                .modelName("nvidia/llama-3.3-nemotron-super-49b-v1")
+                .modelName(getModel())
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();
+    }
+
+    @Override
+    public String getDefaultModel() {
+        return "nvidia/llama-3.3-nemotron-super-49b-v1";
     }
 
     public String handleException(Exception e) throws Exception {

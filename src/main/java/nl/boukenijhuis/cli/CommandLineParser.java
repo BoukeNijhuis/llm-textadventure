@@ -1,17 +1,20 @@
 package nl.boukenijhuis.cli;
 
 import nl.boukenijhuis.game.Game;
-import nl.boukenijhuis.model.Model;
+import nl.boukenijhuis.provider.Provider;
 
 import static picocli.CommandLine.Option;
 
 public class CommandLineParser implements Runnable {
 
-    @Option(names = "--game", converter = GameConverter.class)
+    @Option(names = "--game", required = true, converter = GameConverter.class)
     private Game game;
 
-    @Option(names = "--model", converter = ModelConverter.class)
-    private Model model;
+    @Option(names = "--model")
+    private String model;
+
+    @Option(names = "--provider", required = true, converter = ProviderConverter.class)
+    private Provider provider;
 
     @Override
     public void run() {
@@ -22,7 +25,9 @@ public class CommandLineParser implements Runnable {
         return game;
     }
 
-    public Model getModel() {
+    public String getModel() {
         return model;
     }
+
+    public Provider getProvider() { return provider; }
 }

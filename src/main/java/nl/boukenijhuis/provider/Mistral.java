@@ -1,19 +1,26 @@
-package nl.boukenijhuis.model;
+package nl.boukenijhuis.provider;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.mistralai.MistralAiChatModel;
-import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 
-public class Mistral implements Model {
+public class Mistral extends AbstractProvider {
 
     @Override
-    public ChatLanguageModel getChatLanguageModel() {
+    public ChatLanguageModel getChatLanguageModel(String model) {
+
+        setModel(model);
+
         return MistralAiChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-                .modelName("mistral-small-latest")
+                .modelName(getModel())
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();
+    }
+
+    @Override
+    public String getDefaultModel() {
+        return "mistral-small-latest";
     }
 
     public String handleException(Exception e) throws Exception {

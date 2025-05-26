@@ -7,7 +7,7 @@ import picocli.CommandLine;
 
 public class GameConverter implements CommandLine.ITypeConverter<Game> {
 
-    private enum ValidGame {
+    public enum ValidGame {
         ZORK(new Zork()),
         HITCHHIKER(new Hitchhiker());
 

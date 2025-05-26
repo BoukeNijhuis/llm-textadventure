@@ -4,7 +4,7 @@ import dev.langchain4j.chain.ConversationalChain;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import nl.boukenijhuis.cli.CommandLineParser;
 import nl.boukenijhuis.game.Game;
-import nl.boukenijhuis.model.Model;
+import nl.boukenijhuis.provider.Provider;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -14,22 +14,22 @@ import static nl.boukenijhuis.RepeatPreventer.updateOutputWhenTheGameKeepsRepeat
 
 public class Main {
 
-    // TODO: something goes wrong after incorrect commands from the llm (check the scratch)
     // TODO: readme with instructions for Zork, DumbFrotz & all models
-    // TODO: introduce family
+    // TODO: provide valide values
 
     public static void main(String[] args) throws IOException {
         CommandLineParser clParser = new CommandLineParser();
         new CommandLine(clParser).execute(args);
 
         Game game = clParser.getGame();
-        Model model = clParser.getModel();
+        Provider provider = clParser.getProvider();
+        String model = clParser.getModel();
 
-        printStatus(game, model);
+        printStatus(game, provider);
 
         // setup the chain
         ConversationalChain chain = ConversationalChain.builder()
-                .chatLanguageModel(model.getChatLanguageModel())
+                .chatLanguageModel(provider.getChatLanguageModel(model))
                 .chatMemory(MessageWindowChatMemory.withMaxMessages(50))
                 .build();
 
@@ -42,7 +42,7 @@ public class Main {
                 Use the hints that the game gives you.
                 """;
 
-        CommandExtractor commandExtractor = new CommandExtractor(model, chain);
+        CommandExtractor commandExtractor = new CommandExtractor(provider, chain);
         // do not check the provided instructions
         commandExtractor.getCommand(modelInput, false);
 

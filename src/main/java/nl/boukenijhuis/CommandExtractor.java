@@ -1,7 +1,7 @@
 package nl.boukenijhuis;
 
 import dev.langchain4j.chain.ConversationalChain;
-import nl.boukenijhuis.model.Model;
+import nl.boukenijhuis.provider.Provider;
 
 import java.util.function.Function;
 
@@ -18,10 +18,10 @@ public class CommandExtractor {
     private static final String FORMATTING_FOUND_HINT = "Do not use formatting like *. Give only simple commands without any formatting.";
     private static final String WARNING_FORMAT = "!!! WARNING -> %s: %s !!!";
 
-    private Model model;
+    private Provider model;
     private ConversationalChain chain;
 
-    public CommandExtractor(Model model, ConversationalChain chain) {
+    public CommandExtractor(Provider model, ConversationalChain chain) {
         this.model = model;
         this.chain = chain;
     }
