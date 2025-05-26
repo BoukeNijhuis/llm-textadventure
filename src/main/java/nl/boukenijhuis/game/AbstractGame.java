@@ -51,10 +51,7 @@ public abstract class AbstractGame implements Game {
 
     private String clean(String s) {
         return s.replace(">", "")
-                .replace("\n", " ")
-                .replace("  ", " ")
-                .replace("\t\tThis version created 11-MAR-91.", "")
-                ;
+                .trim();
     }
 
     private void writeInput(String input) {
