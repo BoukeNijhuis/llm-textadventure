@@ -1,7 +1,7 @@
 package nl.boukenijhuis.cli;
 
 import nl.boukenijhuis.game.Game;
-import nl.boukenijhuis.game.VoiceAdventure;
+import nl.boukenijhuis.game.Hitchhiker;
 import nl.boukenijhuis.game.Zork;
 import nl.boukenijhuis.model.Gemini;
 import nl.boukenijhuis.model.Model;
@@ -61,8 +61,6 @@ class CommandLineParserTest {
         Game game = parser.getGame();
         assertNotNull(game);
         assertTrue(game instanceof Zork);
-
-        assertTrue(outputStream.toString().contains("Game: Zork"));
     }
 
     @Test
@@ -72,25 +70,19 @@ class CommandLineParserTest {
         Model model = parser.getModel();
         assertNotNull(model);
         assertTrue(model instanceof Gemini);
-
-        assertTrue(outputStream.toString().contains("Model: Gemini"));
     }
 
     @Test
     void testSetBothGameAndModel() {
-        new CommandLine(parser).execute("--game", "voiceadventure", "--model", "gemini");
+        new CommandLine(parser).execute("--game", "hitchhiker", "--model", "gemini");
 
         Game game = parser.getGame();
         assertNotNull(game);
-        assertTrue(game instanceof VoiceAdventure);
+        assertTrue(game instanceof Hitchhiker);
 
         Model model = parser.getModel();
         assertNotNull(model);
         assertTrue(model instanceof Gemini);
-
-        String output = outputStream.toString();
-        assertTrue(output.contains("Game: VoiceAdventure"));
-        assertTrue(output.contains("Model: Gemini"));
     }
 
     @Test

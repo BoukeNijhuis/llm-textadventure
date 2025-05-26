@@ -11,7 +11,7 @@ import static org.mockito.Mockito.mock;
 class CommandExtractorTest {
 
     private static final String NO_INPUT_MESSAGE = "Did not receive any input from the game.";
-    private static final String COMMAND_TOO_LONG_HINT = "Your answer is too long. Please give me EXACTLY ONE short command in the form of GO EAST, OPEN DOOR, etc.";
+    private static final String COMMAND_TOO_LONG_HINT = "Your answer is too long. Please give me EXACTLY ONE short command in the form of GO EAST, OPEN DOOR, etc. Do not invent your own story, we are playing an existing game!";
     private static final String QUOTES_FOUND_HINT = "Do not use quotes. Give only simple commands without any formatting.";
     private static final String FORMATTING_FOUND_HINT = "Do not use formatting like *. Give only simple commands without any formatting.";
 

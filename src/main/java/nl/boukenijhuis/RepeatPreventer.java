@@ -12,7 +12,7 @@ public class RepeatPreventer {
             if (++repeatCounter == 4) {
                 output = "The game keeps repeating. So use the HELP command.";
                 // warn the spectator
-                print("The repeat counter tripped! With phrase: " + repeatPhrase);
+                print("!!! The repeat counter tripped! With phrase: " + repeatPhrase + " !!!");
 
                 // reset the counter & phrase
                 resetCounterAndPhrase();

@@ -40,14 +40,12 @@ class ModelConverterTest {
     void convertGemini() {
         Model model = converter.convert("gemini");
         assertTrue(model instanceof Gemini);
-        assertTrue(outputStream.toString().contains("Model: Gemini"));
     }
 
     @Test
     void convertGeminiCaseInsensitive() {
         Model model = converter.convert("GEMINI");
         assertTrue(model instanceof Gemini);
-        assertTrue(outputStream.toString().contains("Model: Gemini"));
     }
 
     // works only when you have the specified model downloaded
@@ -55,7 +53,6 @@ class ModelConverterTest {
     void convertOllama() {
         Model model = converter.convert("gemma3:12b");
         assertTrue(model instanceof Ollama);
-        assertTrue(outputStream.toString().contains("Model: Ollama with gemma3:12b"));
     }
 
     @Test

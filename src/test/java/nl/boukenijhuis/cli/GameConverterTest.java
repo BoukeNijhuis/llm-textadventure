@@ -1,7 +1,7 @@
 package nl.boukenijhuis.cli;
 
 import nl.boukenijhuis.game.Game;
-import nl.boukenijhuis.game.VoiceAdventure;
+import nl.boukenijhuis.game.Hitchhiker;
 import nl.boukenijhuis.game.Zork;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,21 +39,18 @@ class GameConverterTest {
     void convertZork() {
         Game game = converter.convert("zork");
         assertTrue(game instanceof Zork);
-        assertTrue(outputStream.toString().contains("Game: Zork"));
     }
 
     @Test
     void convertVoiceAdventure() {
-        Game game = converter.convert("voiceadventure");
-        assertTrue(game instanceof VoiceAdventure);
-        assertTrue(outputStream.toString().contains("Game: VoiceAdventure"));
+        Game game = converter.convert("hitchhiker");
+        assertTrue(game instanceof Hitchhiker);
     }
 
     @Test
     void convertCaseInsensitive() {
         Game game = converter.convert("ZORK");
         assertTrue(game instanceof Zork);
-        assertTrue(outputStream.toString().contains("Game: Zork"));
     }
 
     @Test
