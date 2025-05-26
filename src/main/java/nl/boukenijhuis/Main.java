@@ -15,10 +15,8 @@ import static nl.boukenijhuis.RepeatPreventer.updateOutputWhenTheGameKeepsRepeat
 public class Main {
 
     // TODO: something goes wrong after incorrect commands from the llm (check the scratch)
-    // TODO: readme with instructions for Zork & all models
-    // TODO: backup scratch for playing VoiceAdventure
+    // TODO: readme with instructions for Zork, DumbFrotz & all models
     // TODO: introduce family
-
 
     public static void main(String[] args) throws IOException {
         CommandLineParser clParser = new CommandLineParser();
@@ -32,7 +30,7 @@ public class Main {
         // setup the chain
         ConversationalChain chain = ConversationalChain.builder()
                 .chatLanguageModel(model.getChatLanguageModel())
-                .chatMemory(MessageWindowChatMemory.withMaxMessages(20))
+                .chatMemory(MessageWindowChatMemory.withMaxMessages(50))
                 .build();
 
         // initial prompt
