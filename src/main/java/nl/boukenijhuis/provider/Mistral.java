@@ -5,14 +5,16 @@ import dev.langchain4j.model.mistralai.MistralAiChatModel;
 
 public class Mistral extends AbstractProvider {
 
-    @Override
-    public ChatLanguageModel getChatLanguageModel(String model) {
+    public Mistral(String model) {
+        super(model);
+    }
 
-        setModel(model);
+    @Override
+    public ChatLanguageModel getChatLanguageModel() {
 
         return MistralAiChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-                .modelName(getModel())
+                .modelName(model)
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();

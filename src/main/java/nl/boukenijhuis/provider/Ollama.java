@@ -5,13 +5,14 @@ import dev.langchain4j.model.ollama.OllamaChatModel;
 
 public class Ollama extends AbstractProvider {
 
+    public Ollama(String model) {
+        super(model);
+    }
+
     @Override
-    public ChatLanguageModel getChatLanguageModel(String model) {
-
-        setModel(model);
-
+    public ChatLanguageModel getChatLanguageModel() {
         return OllamaChatModel.builder()
-                .modelName(getModel())
+                .modelName(model)
                 .baseUrl("http://localhost:11434")
                 .maxRetries(0)
                 .build();

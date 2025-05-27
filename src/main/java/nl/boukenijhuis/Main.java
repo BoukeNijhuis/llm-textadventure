@@ -5,6 +5,7 @@ import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import nl.boukenijhuis.cli.CommandLineParser;
 import nl.boukenijhuis.game.Game;
 import nl.boukenijhuis.provider.Provider;
+import nl.boukenijhuis.provider.ProviderBuilder;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -22,14 +23,16 @@ public class Main {
         new CommandLine(clParser).execute(args);
 
         Game game = clParser.getGame();
-        Provider provider = clParser.getProvider();
+        ProviderBuilder providerBuilder = clParser.getProviderBuilder();
         String model = clParser.getModel();
+        Provider provider = providerBuilder.model(model).build();
+
 
         printStatus(game, provider);
 
         // setup the chain
         ConversationalChain chain = ConversationalChain.builder()
-                .chatLanguageModel(provider.getChatLanguageModel(model))
+                .chatLanguageModel(provider.getChatLanguageModel())
                 .chatMemory(MessageWindowChatMemory.withMaxMessages(50))
                 .build();
 

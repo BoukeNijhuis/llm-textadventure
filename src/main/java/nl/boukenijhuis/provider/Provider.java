@@ -4,7 +4,7 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 
 public interface Provider {
 
-    ChatLanguageModel getChatLanguageModel(String model);
+    ChatLanguageModel getChatLanguageModel();
 
     String getDefaultModel();
 

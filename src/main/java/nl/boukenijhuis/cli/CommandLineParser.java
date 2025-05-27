@@ -2,6 +2,7 @@ package nl.boukenijhuis.cli;
 
 import nl.boukenijhuis.game.Game;
 import nl.boukenijhuis.provider.Provider;
+import nl.boukenijhuis.provider.ProviderBuilder;
 
 import static picocli.CommandLine.Option;
 
@@ -14,7 +15,7 @@ public class CommandLineParser implements Runnable {
     private String model;
 
     @Option(names = "--provider", required = true, converter = ProviderConverter.class)
-    private Provider provider;
+    private ProviderBuilder providerBuilder;
 
     @Override
     public void run() {
@@ -29,5 +30,5 @@ public class CommandLineParser implements Runnable {
         return model;
     }
 
-    public Provider getProvider() { return provider; }
+    public ProviderBuilder getProviderBuilder() { return providerBuilder; }
 }

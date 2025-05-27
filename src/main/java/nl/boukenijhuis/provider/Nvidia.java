@@ -5,17 +5,19 @@ import dev.langchain4j.model.mistralai.MistralAiChatModel;
 
 public class Nvidia extends AbstractProvider {
 
-    @Override
-    public ChatLanguageModel getChatLanguageModel(String model) {
+    public Nvidia(String model) {
+        super(model);
+    }
 
-        setModel(model);
+    @Override
+    public ChatLanguageModel getChatLanguageModel() {
 
         return MistralAiChatModel.builder()
                 .apiKey(System.getenv("NVIDIA_API_KEY"))
                 .baseUrl("https://integrate.api.nvidia.com/v1")
 //                .modelName("meta/llama-3.3-70b-instruct")
 //                .modelName("nvidia/llama-3.1-nemotron-ultra-253b-v1")
-                .modelName(getModel())
+                .modelName(model)
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();

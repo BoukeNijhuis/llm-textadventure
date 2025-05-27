@@ -5,6 +5,7 @@ import nl.boukenijhuis.game.Hitchhiker;
 import nl.boukenijhuis.game.Zork;
 import nl.boukenijhuis.provider.Google;
 import nl.boukenijhuis.provider.Provider;
+import nl.boukenijhuis.provider.ProviderBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,9 +68,9 @@ class CommandLineParserTest {
     void testProvider() {
         new CommandLine(parser).execute("--provider", "gemini");
 
-        Provider provider = parser.getProvider();
-        assertNotNull(provider);
-        assertTrue(provider instanceof Google);
+        ProviderBuilder providerBuilder = parser.getProviderBuilder();
+        assertNotNull(providerBuilder);
+        assertTrue(providerBuilder.build() instanceof Google);
     }
 
     @Test
@@ -80,9 +81,9 @@ class CommandLineParserTest {
         assertNotNull(game);
         assertTrue(game instanceof Hitchhiker);
 
-        Provider provider = parser.getProvider();
-        assertNotNull(provider);
-        assertTrue(provider instanceof Google);
+        ProviderBuilder providerBuilder = parser.getProviderBuilder();
+        assertNotNull(providerBuilder);
+        assertTrue(providerBuilder.build() instanceof Google);
     }
 
     @Test

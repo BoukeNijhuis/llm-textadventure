@@ -5,24 +5,24 @@ import picocli.CommandLine;
 
 import java.util.Arrays;
 
-public class ProviderConverter implements CommandLine.ITypeConverter<Provider> {
+public class ProviderConverter implements CommandLine.ITypeConverter<ProviderBuilder> {
 
     private enum ValidProvider {
-        OLLAMA(new Ollama()),
-        GEMINI(new Google()),
-        MISTRAL(new Mistral()),
-        NVIDIA(new Nvidia());
+        OLLAMA(new ProviderBuilder(Ollama.class)),
+        GEMINI(new ProviderBuilder(Google.class)),
+        MISTRAL(new ProviderBuilder(Mistral.class)),
+        NVIDIA(new ProviderBuilder(Nvidia.class));
 
-        private final Provider provider;
+        private final ProviderBuilder providerBuilder;
 
-        ValidProvider(Provider provider) {
-            this.provider = provider;
+        ValidProvider(ProviderBuilder providerBuilder) {
+            this.providerBuilder = providerBuilder;
         }
     }
 
-    public Provider convert(String value) {
+    public ProviderBuilder convert(String value) {
         try {
-            return ValidProvider.valueOf(value.toUpperCase()).provider;
+            return ValidProvider.valueOf(value.toUpperCase()).providerBuilder;
         } catch (IllegalArgumentException e) {
             String message = String.format("Invalid value for option '--provider': %s.");
             throw new IllegalArgumentException(message);

@@ -5,15 +5,17 @@ import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 
 public class Google extends AbstractProvider {
 
-    @Override
-    public ChatLanguageModel getChatLanguageModel(String model) {
+    public Google(String model) {
+        super(model);
+    }
 
-        setModel(model);
+    @Override
+    public ChatLanguageModel getChatLanguageModel() {
 
         return VertexAiGeminiChatModel.builder()
                 .project("voiceadventure-3cf8a")
                 .location("us-central1")
-                .modelName(getModel())
+                .modelName(model)
                 // prevents rate limiter logging
                 .maxRetries(1)
                 .build();
