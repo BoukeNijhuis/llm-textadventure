@@ -5,9 +5,19 @@ import nl.boukenijhuis.provider.Provider;
 
 public class Printer {
 
-    public static void printStatus(Game game, Provider model) {
-        String message = "Game: " + game.getName() + System.lineSeparator()+ "Model: " + model.getName();
+    public static void printStatus(Game game, Provider provider, String model) {
+        String message =
+                "Game:     " + game.getName() + System.lineSeparator() +
+                "Provider: " + provider.getName() + System.lineSeparator() +
+                "Model:    " + capitalize(model);
         System.out.print(message);
+    }
+
+    private static String capitalize(String input) {
+        if (input == null || input.isBlank()) {
+            return input;
+        }
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
     public static void print(String message) {
