@@ -15,8 +15,7 @@ public class Nvidia extends AbstractProvider {
         return MistralAiChatModel.builder()
                 .apiKey(System.getenv("NVIDIA_API_KEY"))
                 .baseUrl("https://integrate.api.nvidia.com/v1")
-//                .modelName("meta/llama-3.3-70b-instruct")
-//                .modelName("nvidia/llama-3.1-nemotron-ultra-253b-v1")
+                .modelName("")
                 .modelName(model)
                 // prevents rate limiter logging
                 .maxRetries(1)
@@ -25,7 +24,7 @@ public class Nvidia extends AbstractProvider {
 
     @Override
     public String getDefaultModel() {
-        return "nvidia/llama-3.3-nemotron-super-49b-v1";
+        return "nvidia/meta/llama-3.3-70b-instruct";
     }
 
     public String handleException(Exception e) throws Exception {
