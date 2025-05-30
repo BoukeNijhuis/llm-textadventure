@@ -24,7 +24,7 @@ public class Nvidia extends AbstractProvider {
 
     @Override
     public String getDefaultModel() {
-        return "nvidia/meta/llama-3.3-70b-instruct";
+        return "meta/llama-3.3-70b-instruct";
     }
 
     public String handleException(Exception e) throws Exception {
