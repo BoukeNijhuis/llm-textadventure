@@ -24,10 +24,9 @@ public class Main {
 
         Game game = clParser.getGame();
         ProviderBuilder providerBuilder = clParser.getProviderBuilder();
-        String model = clParser.getModel();
-        Provider provider = providerBuilder.model(model).build();
+        Provider provider = providerBuilder.model(clParser.getModel()).build();
 
-        printStatus(game, provider, model);
+        printStatus(game, provider);
 
         // setup the chain
         ConversationalChain chain = ConversationalChain.builder()

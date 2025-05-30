@@ -5,11 +5,11 @@ import nl.boukenijhuis.provider.Provider;
 
 public class Printer {
 
-    public static void printStatus(Game game, Provider provider, String model) {
+    public static void printStatus(Game game, Provider provider) {
         String message =
                 "Game:     " + game.getName() + System.lineSeparator() +
                 "Provider: " + provider.getName() + System.lineSeparator() +
-                "Model:    " + capitalize(model);
+                "Model:    " + capitalize(provider.getModel());
         System.out.print(message);
     }
 

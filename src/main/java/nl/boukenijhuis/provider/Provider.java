@@ -13,4 +13,6 @@ public interface Provider {
     default String getName() {
         return this.getClass().getSimpleName();
     }
+
+    String getModel();
 }
