@@ -20,4 +20,9 @@ public abstract class AbstractProvider implements Provider {
     public String getModel() {
         return model;
     }
+
+    @Override
+    public String handleException(Exception e) throws Exception {
+        throw e;
+    }
 }
