@@ -23,7 +23,7 @@ public class Together extends AbstractProvider {
 
     @Override
     public String getDefaultModel() {
-        return "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free";
+        return "openai/gpt-oss-20b";
     }
 
 }
