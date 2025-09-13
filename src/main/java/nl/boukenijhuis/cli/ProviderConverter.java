@@ -3,15 +3,14 @@ package nl.boukenijhuis.cli;
 import nl.boukenijhuis.provider.*;
 import picocli.CommandLine;
 
-import java.util.Arrays;
-
 public class ProviderConverter implements CommandLine.ITypeConverter<ProviderBuilder> {
 
     private enum ValidProvider {
         OLLAMA(new ProviderBuilder(Ollama.class)),
         GEMINI(new ProviderBuilder(Google.class)),
         MISTRAL(new ProviderBuilder(Mistral.class)),
-        NVIDIA(new ProviderBuilder(Nvidia.class));
+        NVIDIA(new ProviderBuilder(Nvidia.class)),
+        GROQ(new ProviderBuilder(Groq.class));
 
         private final ProviderBuilder providerBuilder;
 
