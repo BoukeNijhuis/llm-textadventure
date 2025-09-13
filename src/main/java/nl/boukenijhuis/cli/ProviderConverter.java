@@ -10,7 +10,8 @@ public class ProviderConverter implements CommandLine.ITypeConverter<ProviderBui
         GEMINI(new ProviderBuilder(Google.class)),
         MISTRAL(new ProviderBuilder(Mistral.class)),
         NVIDIA(new ProviderBuilder(Nvidia.class)),
-        GROQ(new ProviderBuilder(Groq.class));
+        GROQ(new ProviderBuilder(Groq.class)),
+        TOGETHER(new ProviderBuilder(Together.class));
 
         private final ProviderBuilder providerBuilder;
 
