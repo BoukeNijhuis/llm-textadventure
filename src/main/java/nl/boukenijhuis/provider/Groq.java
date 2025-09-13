@@ -13,7 +13,6 @@ public class Groq extends AbstractProvider {
     public ChatLanguageModel getChatLanguageModel() {
 
         return OpenAiChatModel.builder()
-                // TODO: put in env variable
                 .apiKey(System.getenv("GROQ_API_KEY"))
                 .baseUrl("https://api.groq.com/openai/v1")
                 .modelName(model)
