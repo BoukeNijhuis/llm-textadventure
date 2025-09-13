@@ -26,6 +26,8 @@ public abstract class AbstractProvider implements Provider {
         // ignore the rate limiter
         if (e.getMessage().contains(getRateLimitMessage())) {
             System.out.print(".");
+            // sleep for 1 second
+            Thread.sleep(1000);
             // no new command, just retry
             return null;
         } else {
