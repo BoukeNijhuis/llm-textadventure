@@ -3,8 +3,7 @@ package nl.boukenijhuis.cli;
 import nl.boukenijhuis.game.Game;
 import nl.boukenijhuis.game.Hitchhiker;
 import nl.boukenijhuis.game.Zork;
-import nl.boukenijhuis.provider.Google;
-import nl.boukenijhuis.provider.Provider;
+import nl.boukenijhuis.provider.Gemini;
 import nl.boukenijhuis.provider.ProviderBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +69,7 @@ class CommandLineParserTest {
 
         ProviderBuilder providerBuilder = parser.getProviderBuilder();
         assertNotNull(providerBuilder);
-        assertTrue(providerBuilder.build() instanceof Google);
+        assertTrue(providerBuilder.build() instanceof Gemini);
     }
 
     @Test
@@ -83,7 +82,7 @@ class CommandLineParserTest {
 
         ProviderBuilder providerBuilder = parser.getProviderBuilder();
         assertNotNull(providerBuilder);
-        assertTrue(providerBuilder.build() instanceof Google);
+        assertTrue(providerBuilder.build() instanceof Gemini);
     }
 
     @Test

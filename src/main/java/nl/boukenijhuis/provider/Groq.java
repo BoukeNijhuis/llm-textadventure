@@ -3,23 +3,20 @@ package nl.boukenijhuis.provider;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 
-public class Groq extends AbstractProvider {
+public class Groq extends AbstractOpenAiProvider {
 
     public Groq(String model) {
         super(model);
     }
 
     @Override
-    public ChatLanguageModel getChatLanguageModel() {
+    public String getEnvironmentVariableValue() {
+        return "GROQ_API_KEY";
+    }
 
-        return OpenAiChatModel.builder()
-                // TODO: put in env variable
-                .apiKey(System.getenv("GROQ_API_KEY"))
-                .baseUrl("https://api.groq.com/openai/v1")
-                .modelName(model)
-                // prevents rate limiter logging
-                .maxRetries(1)
-                .build();
+    @Override
+    public String getBaseURL() {
+        return "https://api.groq.com/openai/v1";
     }
 
     @Override
@@ -27,14 +24,8 @@ public class Groq extends AbstractProvider {
         return "llama-3.3-70b-versatile";
     }
 
-    public String handleException(Exception e) throws Exception {
-        // ignore the rate limiter
-        if (e.getMessage().contains("Rate limit reached")) {
-//                System.out.print("\n.");
-            // no new command, just retry
-            return null;
-        } else {
-            throw e;
-        }
+    @Override
+    public String getRateLimitMessage() {
+        return "Rate limit reached";
     }
 }

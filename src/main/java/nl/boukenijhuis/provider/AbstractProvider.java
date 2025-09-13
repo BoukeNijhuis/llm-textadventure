@@ -23,6 +23,15 @@ public abstract class AbstractProvider implements Provider {
 
     @Override
     public String handleException(Exception e) throws Exception {
-        throw e;
+        // ignore the rate limiter
+        if (e.getMessage().contains(getRateLimitMessage())) {
+            System.out.print(".");
+            // no new command, just retry
+            return null;
+        } else {
+            throw e;
+        }
     }
+
+    abstract public String getRateLimitMessage();
 }

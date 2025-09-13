@@ -7,7 +7,7 @@ public class ProviderConverter implements CommandLine.ITypeConverter<ProviderBui
 
     private enum ValidProvider {
         OLLAMA(new ProviderBuilder(Ollama.class)),
-        GEMINI(new ProviderBuilder(Google.class)),
+        GEMINI(new ProviderBuilder(Gemini.class)),
         MISTRAL(new ProviderBuilder(Mistral.class)),
         NVIDIA(new ProviderBuilder(Nvidia.class)),
         GROQ(new ProviderBuilder(Groq.class)),

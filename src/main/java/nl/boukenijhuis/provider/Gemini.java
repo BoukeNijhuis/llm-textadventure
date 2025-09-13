@@ -3,9 +3,9 @@ package nl.boukenijhuis.provider;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 
-public class Google extends AbstractProvider {
+public class Gemini extends AbstractProvider {
 
-    public Google(String model) {
+    public Gemini(String model) {
         super(model);
     }
 
@@ -26,14 +26,8 @@ public class Google extends AbstractProvider {
         return "gemini-2.5-flash-preview-05-20";
     }
 
-    public String handleException(Exception e) throws Exception {
-        // ignore the rate limiter
-        if (e.getMessage().contains("com.google.api.gax.rpc.ResourceExhaustedException")) {
-//                System.out.print("\n.");
-            // no new command, just retry
-            return null;
-        } else {
-            throw e;
-        }
+    @Override
+    public String getRateLimitMessage() {
+        return "com.google.api.gax.rpc.ResourceExhaustedException";
     }
 }

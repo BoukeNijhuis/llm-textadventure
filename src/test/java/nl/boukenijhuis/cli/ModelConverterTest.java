@@ -1,7 +1,6 @@
 package nl.boukenijhuis.cli;
 
-import nl.boukenijhuis.provider.Google;
-import nl.boukenijhuis.provider.Provider;
+import nl.boukenijhuis.provider.Gemini;
 import nl.boukenijhuis.provider.Ollama;
 import nl.boukenijhuis.provider.ProviderBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -40,13 +39,13 @@ class ModelConverterTest {
     @Test
     void convertGemini() {
         ProviderBuilder providerBuilder = converter.convert("gemini");
-        assertTrue(providerBuilder.build() instanceof Google);
+        assertTrue(providerBuilder.build() instanceof Gemini);
     }
 
     @Test
     void convertGeminiCaseInsensitive() {
         ProviderBuilder providerBuilder = converter.convert("GEMINI");
-        assertTrue(providerBuilder.build() instanceof Google);
+        assertTrue(providerBuilder.build() instanceof Gemini);
     }
 
     // works only when you have the specified model downloaded

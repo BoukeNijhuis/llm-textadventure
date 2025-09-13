@@ -24,7 +24,8 @@ public class Ollama extends AbstractProvider {
     }
 
     @Override
-    public String handleException(Exception e) throws Exception {
-        throw e;
+    public String getRateLimitMessage() {
+        // dummy implementation
+        return "";
     }
 }

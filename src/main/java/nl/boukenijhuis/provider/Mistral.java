@@ -25,14 +25,8 @@ public class Mistral extends AbstractProvider {
         return "mistral-small-latest";
     }
 
-    public String handleException(Exception e) throws Exception {
-        // ignore the rate limiter
-        if (e.getMessage().contains("java.lang.RuntimeException: status code: 429; body: {\"message\":\"Requests rate limit exceeded\"}")) {
-//                System.out.print("\n.");
-            // no new command, just retry
-            return null;
-        } else {
-            throw e;
-        }
+    @Override
+    public String getRateLimitMessage() {
+        return "java.lang.RuntimeException: status code: 429";
     }
 }
