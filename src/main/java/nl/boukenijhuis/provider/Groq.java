@@ -13,6 +13,7 @@ public class Groq extends AbstractProvider {
     public ChatLanguageModel getChatLanguageModel() {
 
         return OpenAiChatModel.builder()
+                // TODO: put in env variable
                 .apiKey(System.getenv("GROQ_API_KEY"))
                 .baseUrl("https://api.groq.com/openai/v1")
                 .modelName(model)
@@ -27,7 +28,13 @@ public class Groq extends AbstractProvider {
     }
 
     public String handleException(Exception e) throws Exception {
-        // TODO implement
-        throw e;
+        // ignore the rate limiter
+        if (e.getMessage().contains("Rate limit reached")) {
+//                System.out.print("\n.");
+            // no new command, just retry
+            return null;
+        } else {
+            throw e;
+        }
     }
 }
