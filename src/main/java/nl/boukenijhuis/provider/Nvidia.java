@@ -2,6 +2,7 @@ package nl.boukenijhuis.provider;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.mistralai.MistralAiChatModel;
+import dev.langchain4j.model.openai.OpenAiChatModel;
 
 public class Nvidia extends AbstractProvider {
 
@@ -12,10 +13,9 @@ public class Nvidia extends AbstractProvider {
     @Override
     public ChatLanguageModel getChatLanguageModel() {
 
-        return MistralAiChatModel.builder()
+        return OpenAiChatModel.builder()
                 .apiKey(System.getenv("NVIDIA_API_KEY"))
                 .baseUrl("https://integrate.api.nvidia.com/v1")
-                .modelName("")
                 .modelName(model)
                 // prevents rate limiter logging
                 .maxRetries(1)
