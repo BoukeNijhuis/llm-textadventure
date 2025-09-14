@@ -23,15 +23,11 @@ public class ProviderConverter implements CommandLine.ITypeConverter<ProviderBui
             this.providerBuilder = providerBuilder;
         }
 
-        public ProviderBuilder getProviderBuilder() {
-            return providerBuilder;
-        }
-
         static class CompletionCandidates extends ArrayList<String> {
             CompletionCandidates() {
                 super(new ArrayList<>(
-                        Arrays.stream(ValidProvider.values())
-                                .map(ValidProvider::name)
+                        Arrays.stream(values())
+                                .map(Enum::name)
                                 .map(String::toLowerCase)
                                 .toList()));
             }

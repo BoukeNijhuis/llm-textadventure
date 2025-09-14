@@ -23,8 +23,8 @@ public class GameConverter implements CommandLine.ITypeConverter<Game> {
         static class CompletionCandidates extends ArrayList<String> {
             CompletionCandidates() {
                 super(new ArrayList<>(
-                        Arrays.stream(GameConverter.ValidGame.values())
-                                .map(GameConverter.ValidGame::name)
+                        Arrays.stream(values())
+                                .map(Enum::name)
                                 .map(String::toLowerCase)
                                 .toList()));
             }
