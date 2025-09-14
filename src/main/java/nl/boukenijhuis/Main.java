@@ -16,11 +16,14 @@ import static nl.boukenijhuis.RepeatPreventer.updateOutputWhenTheGameKeepsRepeat
 public class Main {
 
     // TODO: readme with instructions for Zork, DumbFrotz & all models
-    // TODO: provide valide values
-
     public static void main(String[] args) throws IOException {
         CommandLineParser clParser = new CommandLineParser();
-        new CommandLine(clParser).execute(args);
+        int result = new CommandLine(clParser).execute(args);
+
+        // exit if there was an error
+        if (result != 0) {
+            System.exit(result);
+        }
 
         Game game = clParser.getGame();
         ProviderBuilder providerBuilder = clParser.getProviderBuilder();

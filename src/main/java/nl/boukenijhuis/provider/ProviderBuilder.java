@@ -2,7 +2,7 @@ package nl.boukenijhuis.provider;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class ProviderBuilder{
+public class ProviderBuilder {
 
     private String model;
     private Class<? extends Provider> clazz;
@@ -11,7 +11,7 @@ public class ProviderBuilder{
         this.clazz = clazz;
     }
 
-    public ProviderBuilder model(String model){
+    public ProviderBuilder model(String model) {
         this.model = model;
         return this;
     }
@@ -22,7 +22,8 @@ public class ProviderBuilder{
         // TODO check if model is filled, if not use default model
         try {
             return clazz.getConstructor(String.class).newInstance(model);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
     }

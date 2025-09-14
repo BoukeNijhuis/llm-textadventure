@@ -5,6 +5,9 @@ import nl.boukenijhuis.game.Game;
 import nl.boukenijhuis.game.Zork;
 import picocli.CommandLine;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class GameConverter implements CommandLine.ITypeConverter<Game> {
 
     public enum ValidGame {
@@ -15,6 +18,16 @@ public class GameConverter implements CommandLine.ITypeConverter<Game> {
 
         ValidGame(Game game) {
             this.game = game;
+        }
+
+        static class CompletionCandidates extends ArrayList<String> {
+            CompletionCandidates() {
+                super(new ArrayList<>(
+                        Arrays.stream(GameConverter.ValidGame.values())
+                                .map(GameConverter.ValidGame::name)
+                                .map(String::toLowerCase)
+                                .toList()));
+            }
         }
     }
 
