@@ -18,7 +18,7 @@ public class OpenRouter extends AbstractOpenAiProvider {
 
     @Override
     public String getDefaultModel() {
-        return "meta-llama/llama-3.3-70b-instruct:free";
+        return "deepseek/deepseek-chat-v3.1:free";
     }
 
     @Override
