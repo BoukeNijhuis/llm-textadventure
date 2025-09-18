@@ -1,6 +1,6 @@
 package nl.boukenijhuis.provider;
 
-πpublic class Together extends AbstractOpenAiProvider {
+public class Together extends AbstractOpenAiProvider {
 
     public Together(String model) {
         super(model);
