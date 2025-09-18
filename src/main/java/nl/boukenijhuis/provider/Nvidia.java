@@ -1,9 +1,5 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.mistralai.MistralAiChatModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-
 public class Nvidia extends AbstractOpenAiProvider {
 
     public Nvidia(String model) {

@@ -33,7 +33,7 @@ public class Main {
 
         // setup the chain
         ConversationalChain chain = ConversationalChain.builder()
-                .chatLanguageModel(provider.getChatLanguageModel())
+                .chatModel(provider.getChatModel())
                 .chatMemory(MessageWindowChatMemory.withMaxMessages(50))
                 .build();
 

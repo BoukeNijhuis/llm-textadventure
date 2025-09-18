@@ -1,6 +1,6 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 
 public class Ollama extends AbstractProvider {
@@ -10,7 +10,7 @@ public class Ollama extends AbstractProvider {
     }
 
     @Override
-    public ChatLanguageModel getChatLanguageModel() {
+    public ChatModel getChatModel() {
         return OllamaChatModel.builder()
                 .modelName(model)
                 .baseUrl("http://localhost:11434")

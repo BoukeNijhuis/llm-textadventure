@@ -1,7 +1,7 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
 
 public class Gemini extends AbstractProvider {
 
@@ -10,24 +10,23 @@ public class Gemini extends AbstractProvider {
     }
 
     @Override
-    public ChatLanguageModel getChatLanguageModel() {
+    public ChatModel getChatModel() {
 
-        return VertexAiGeminiChatModel.builder()
-                .project("voiceadventure-3cf8a")
-                .location("us-central1")
+        return GoogleAiGeminiChatModel.builder()
+                .apiKey(System.getenv("GEMINI_API_KEY"))
                 .modelName(model)
                 // prevents rate limiter logging
-                .maxRetries(1)
+                .maxRetries(0)
                 .build();
     }
 
     @Override
     public String getDefaultModel() {
-        return "gemini-2.5-flash-preview-05-20";
+        return "gemini-2.5-flash-lite";
     }
 
     @Override
     public String getRateLimitMessage() {
-        return "com.google.api.gax.rpc.ResourceExhaustedException";
+        return "type.googleapis.com/google.rpc.QuotaFailure";
     }
 }

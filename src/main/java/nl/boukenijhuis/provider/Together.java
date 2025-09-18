@@ -1,9 +1,6 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-
-public class Together extends AbstractOpenAiProvider {
+πpublic class Together extends AbstractOpenAiProvider {
 
     public Together(String model) {
         super(model);

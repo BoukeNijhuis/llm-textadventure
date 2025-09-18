@@ -1,6 +1,6 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 
 public abstract class AbstractOpenAiProvider extends AbstractProvider {
@@ -10,7 +10,7 @@ public abstract class AbstractOpenAiProvider extends AbstractProvider {
     }
 
     @Override
-    public ChatLanguageModel getChatLanguageModel() {
+    public ChatModel getChatModel() {
 
         return OpenAiChatModel.builder()
                 .apiKey(System.getenv(getEnvironmentVariableValue()))

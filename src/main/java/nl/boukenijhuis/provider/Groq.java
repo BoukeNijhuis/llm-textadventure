@@ -1,8 +1,5 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-
 public class Groq extends AbstractOpenAiProvider {
 
     public Groq(String model) {

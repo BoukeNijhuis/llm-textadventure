@@ -1,10 +1,10 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 
 public interface Provider {
 
-    ChatLanguageModel getChatLanguageModel();
+    ChatModel getChatModel();
 
     String getDefaultModel();
 

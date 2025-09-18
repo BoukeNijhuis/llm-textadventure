@@ -1,6 +1,6 @@
 package nl.boukenijhuis.provider;
 
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.mistralai.MistralAiChatModel;
 
 public class Mistral extends AbstractProvider {
@@ -10,7 +10,7 @@ public class Mistral extends AbstractProvider {
     }
 
     @Override
-    public ChatLanguageModel getChatLanguageModel() {
+    public ChatModel getChatModel() {
 
         return MistralAiChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
