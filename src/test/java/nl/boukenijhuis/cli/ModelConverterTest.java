@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ModelConverterTest {
 
@@ -39,20 +38,20 @@ class ModelConverterTest {
     @Test
     void convertGemini() {
         ProviderBuilder providerBuilder = converter.convert("gemini");
-        assertTrue(providerBuilder.build() instanceof Gemini);
+        assertEquals(new ProviderBuilder(Gemini.class), providerBuilder);
     }
 
     @Test
     void convertGeminiCaseInsensitive() {
         ProviderBuilder providerBuilder = converter.convert("GEMINI");
-        assertTrue(providerBuilder.build() instanceof Gemini);
+        assertEquals(new ProviderBuilder(Gemini.class), providerBuilder);
     }
 
     // works only when you have the specified model downloaded
     @Test
     void convertOllama() {
         ProviderBuilder providerBuilder = converter.convert("ollama");
-        assertTrue(providerBuilder.build() instanceof Ollama);
+        assertEquals(new ProviderBuilder(Ollama.class), providerBuilder);
     }
 
     @Test

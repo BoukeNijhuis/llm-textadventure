@@ -69,7 +69,7 @@ class CommandLineParserTest {
 
         ProviderBuilder providerBuilder = parser.getProviderBuilder();
         assertNotNull(providerBuilder);
-        assertTrue(providerBuilder.build() instanceof Gemini);
+        assertTrue(providerBuilder.model(parser.getModel()).build() instanceof Gemini);
     }
 
     @Test
@@ -82,7 +82,7 @@ class CommandLineParserTest {
 
         ProviderBuilder providerBuilder = parser.getProviderBuilder();
         assertNotNull(providerBuilder);
-        assertTrue(providerBuilder.build() instanceof Gemini);
+        assertTrue(providerBuilder.model(parser.getModel()).build() instanceof Gemini);
     }
 
     @Test

@@ -1,30 +1,32 @@
 package nl.boukenijhuis.provider;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 public class ProviderBuilder {
 
-    private String model;
     private Class<? extends Provider> clazz;
 
     public ProviderBuilder(Class clazz) {
         this.clazz = clazz;
     }
 
-    public ProviderBuilder model(String model) {
-        this.model = model;
-        return this;
+    public ProviderBuilderWithModel model(String model) {
+        return new ProviderBuilderWithModel(clazz, model);
     }
 
-    public Provider build() {
+    @Override
+    public String toString() {
+        return "ProviderBuilder{clazz=%s}".formatted(clazz);
+    }
 
-        // TODO tests
-        // TODO check if model is filled, if not use default model
-        try {
-            return clazz.getConstructor(String.class).newInstance(model);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                 NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        return Objects.equals(clazz, ((ProviderBuilder) o).clazz);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(clazz);
     }
 }
