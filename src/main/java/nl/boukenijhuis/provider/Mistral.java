@@ -16,7 +16,7 @@ public class Mistral extends AbstractProvider {
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
                 .modelName(model)
                 // prevents rate limiter logging
-                .maxRetries(1)
+                .maxRetries(0)
                 .build();
     }
 

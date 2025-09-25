@@ -17,7 +17,7 @@ public abstract class AbstractOpenAiProvider extends AbstractProvider {
                 .baseUrl(getBaseURL())
                 .modelName(model)
                 // prevents rate limiter logging
-                .maxRetries(1)
+                .maxRetries(0)
                 .build();
     }
 
