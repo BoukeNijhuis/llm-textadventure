@@ -46,6 +46,11 @@
             <artifactId>langchain4j-mistral-ai</artifactId>
             <version>${langchain4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.7.5</version>
+        </dependency>
 
         <!-- prevent the no logger warning -->
         <dependency>
@@ -65,11 +70,6 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>5.14.2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.picocli</groupId>
-            <artifactId>picocli</artifactId>
-            <version>4.7.5</version>
         </dependency>
     </dependencies>
 
