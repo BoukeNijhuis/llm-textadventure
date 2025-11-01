@@ -91,6 +91,8 @@
                                     <mainClass>nl.boukenijhuis.Main</mainClass>
                                 </manifest>
                             </archive>
+                            <finalName>llm-textadventure</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
