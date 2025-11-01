@@ -10,6 +10,7 @@ public class RepeatPreventer {
     public static String updateOutputWhenTheGameKeepsRepeating(String output) {
         if (repeatPhrase != null && output.startsWith(repeatPhrase)) {
             if (++repeatCounter == 4) {
+                // todo add something about inventory and moving?
                 output = "The game keeps repeating. So use the HELP command.";
                 // warn the spectator
                 print("!!! The repeat counter tripped! With phrase: " + repeatPhrase + " !!!");

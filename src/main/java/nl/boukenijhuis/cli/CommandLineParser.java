@@ -6,7 +6,7 @@ import nl.boukenijhuis.provider.ProviderBuilder;
 import static picocli.CommandLine.Command;
 import static picocli.CommandLine.Option;
 
-@Command(sortOptions = false)
+@Command(sortSynopsis = false, sortOptions = false)
 public class CommandLineParser implements Runnable {
 
     @Option(names = "--game", required = true,
