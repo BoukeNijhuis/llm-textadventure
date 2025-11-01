@@ -15,7 +15,7 @@ public class CommandLineParser implements Runnable {
     private Game game;
 
     @Option(names = "--provider", required = true,
-            description = "Supported models: ${COMPLETION-CANDIDATES}",
+            description = "Supported providers: ${COMPLETION-CANDIDATES}",
             converter = ProviderConverter.class, completionCandidates = ProviderConverter.ValidProvider.CompletionCandidates.class)
     private ProviderBuilder providerBuilder;
 
