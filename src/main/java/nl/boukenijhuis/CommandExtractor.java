@@ -38,7 +38,7 @@ public class CommandExtractor {
             command = command.replaceAll("\\n", " ");
 
             // remove <think>*</think>
-            command = command.replaceAll("<think>.*</think>", "").trim();
+            command = command.replaceAll("<think>.*?</think>", "").trim();
 
             if (doChecks) {
                 // the order matters
