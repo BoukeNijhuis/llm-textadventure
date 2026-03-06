@@ -12,7 +12,7 @@ class RepeatPreventerTest {
         String output;
         for (int i = 0; i < 4; i++) {
             output = RepeatPreventer.updateOutputWhenTheGameKeepsRepeating(input);
-            assertEquals(output, input);
+            assertEquals(input, output);
         }
         output = RepeatPreventer.updateOutputWhenTheGameKeepsRepeating(input);
         assertNotEquals(input, output);
