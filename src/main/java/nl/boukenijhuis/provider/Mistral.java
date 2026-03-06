@@ -22,11 +22,11 @@ public class Mistral extends AbstractProvider {
 
     @Override
     public String getDefaultModel() {
-        return "mistral-small-latest";
+        return "mistral-medium-latest";
     }
 
     @Override
     public String getRateLimitMessage() {
-        return "java.lang.RuntimeException: status code: 429";
+        return "exceeded";
     }
 }
