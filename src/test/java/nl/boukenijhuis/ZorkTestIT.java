@@ -1,6 +1,7 @@
 package nl.boukenijhuis;
 
 import nl.boukenijhuis.game.Zork;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -9,9 +10,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ZorkTestIT {
 
+    private Zork zork;
+
+    @AfterEach
+    void tearDown() throws IOException {
+        if (zork != null) {
+            zork.close();
+        }
+    }
+
     @Test
     void writeAndRead() throws IOException {
-        Zork zork = new Zork();
+        zork = new Zork();
         zork.start();
         zork.read();
         String output = zork.writeAndRead("Open mailbox");
@@ -23,7 +33,7 @@ class ZorkTestIT {
 
     @Test
     void read() throws IOException {
-        Zork zork = new Zork();
+        zork = new Zork();
         zork.start();
         String output = zork.read();
         String expected = """

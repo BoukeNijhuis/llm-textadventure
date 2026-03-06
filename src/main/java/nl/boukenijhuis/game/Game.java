@@ -2,7 +2,7 @@ package nl.boukenijhuis.game;
 
 import java.io.IOException;
 
-public interface Game {
+public interface Game extends AutoCloseable {
 
     void start() throws IOException;
 
@@ -14,5 +14,9 @@ public interface Game {
 
     default String getName() {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    default void close() throws IOException {
     }
 }

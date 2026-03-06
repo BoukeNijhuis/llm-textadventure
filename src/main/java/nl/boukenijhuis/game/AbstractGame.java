@@ -62,4 +62,14 @@ public abstract class AbstractGame implements Game {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void close() throws IOException {
+        if (gameInput != null) {
+            gameInput.close();
+        }
+        if (gameOutput != null) {
+            gameOutput.close();
+        }
+    }
 }
