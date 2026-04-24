@@ -15,7 +15,8 @@ public class ProviderConverter implements CommandLine.ITypeConverter<ProviderBui
         NVIDIA(new ProviderBuilder(Nvidia.class)),
         GROQ(new ProviderBuilder(Groq.class)),
         TOGETHER(new ProviderBuilder(Together.class)),
-        OPENROUTER(new ProviderBuilder(OpenRouter.class));
+        OPENROUTER(new ProviderBuilder(OpenRouter.class)),
+        ANTHROPIC(new ProviderBuilder(Anthropic.class));
 
         private final ProviderBuilder providerBuilder;
 
