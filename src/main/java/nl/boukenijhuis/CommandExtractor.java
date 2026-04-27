@@ -34,6 +34,9 @@ public class CommandExtractor {
 
             String command = chain.execute(modelInput);
 
+            // if the model does not return a command do not process
+            if (command == null) { return null;}
+
             // remove new lines (the removing of <think> works better with no new lines)
             command = command.replaceAll("\\n", " ");
 
