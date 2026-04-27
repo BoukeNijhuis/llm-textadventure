@@ -18,7 +18,7 @@ public class Nvidia extends AbstractOpenAiProvider {
 
     @Override
     public String getDefaultModel() {
-        return "meta/llama-3.3-70b-instruct";
+        return "mistralai/devstral-2-123b-instruct-2512";
     }
 
     @Override
