@@ -23,6 +23,6 @@ public class Nvidia extends AbstractOpenAiProvider {
 
     @Override
     public String getRateLimitMessage() {
-        return "java.lang.RuntimeException: status code: 429";
+        return "{\"status\":429,\"title\":\"Too Many Requests\"}";
     }
 }
