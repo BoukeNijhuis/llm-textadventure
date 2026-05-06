@@ -18,7 +18,7 @@ public class Nvidia extends AbstractOpenAiProvider {
 
     @Override
     public String getDefaultModel() {
-        return "mistralai/devstral-2-123b-instruct-2512";
+        return "qwen/qwen3-next-80b-a3b-instruct";
     }
 
     @Override
